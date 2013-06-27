@@ -34,6 +34,8 @@ import org.apache.maven.wagon.authentication.AuthenticationException;
 import org.apache.maven.wagon.authorization.AuthorizationException;
 import org.apache.maven.wagon.events.TransferEvent;
 import org.apache.maven.wagon.providers.ssh.ScpHelper;
+import org.apache.maven.wagon.providers.ssh.knownhost.KnownHostsProvider;
+import org.apache.maven.wagon.providers.ssh.knownhost.NullKnownHostProvider;
 import org.apache.maven.wagon.repository.RepositoryPermissions;
 import org.apache.maven.wagon.resource.Resource;
 
@@ -565,5 +567,22 @@ public class SftpWagon
             ret = -1;
         }
         return ret;
+    }
+    
+    //FIXME patch 
+    /*
+     * this doesn't work for whatever reason
+     *   <knownHostsProvider implementation="org.apache.maven.wagon.providers.ssh.knownhost.NullKnownHostProvider">
+          <hostKeyChecking>no</hostKeyChecking>
+        </knownHostsProvider>
+     */
+    @Override
+    public void setKnownHostsProvider( KnownHostsProvider aKnownHostsProvider )
+    {
+        NullKnownHostProvider provider = new NullKnownHostProvider();
+        provider.setHostKeyChecking( "no" );
+        //TODO find appropriate log output
+        System.out.println("Ignore KnownHostsProvider and use hardcoded NullKnownHostProvider");
+        super.setKnownHostsProvider( provider );
     }
 }

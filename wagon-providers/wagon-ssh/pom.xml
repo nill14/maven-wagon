@@ -26,6 +26,9 @@ under the License.
     <version>2.4</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+  
+  <groupId>com.github.nill14.patch1</groupId>
+	<version>2.4</version>
 
   <artifactId>wagon-ssh</artifactId>
   <name>Apache Maven Wagon :: Providers :: SSH Provider</name>
